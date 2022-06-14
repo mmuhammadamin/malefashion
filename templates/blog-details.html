@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <section class="blog-hero spad">
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <div class="col-lg-9 text-center">
+                    <div class="blog__hero__text">
+                        <h2>{{ blog.title }}</h2>
+                        <ul>
+                            <li>by me</li>
+                            <li>{{ blog.crated_at }}</li>
+                            <li>8 Comments</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="blog-details spad">
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <div class="col-lg-12">
+                    <div class="blog__details__pic">
+                        <img src="{{ blog.image.url }}" alt="">
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="blog__details__content">
+                        <div class="blog__details__share">
+                            <span>share</span>
+                            <ul>
+                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#" class="twitter"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#" class="youtube"><i class="fa fa-youtube-play"></i></a></li>
+                                <li><a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a></li>
+                            </ul>
+                        </div>
+                        <div class="blog__details__text">
+                            <p>{{ blog.content }}</p>
+
+                            <div class="blog__details__option">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <div class="blog__details__author">
+                                            <div class="blog__details__author__pic">
+                                                <img src="{% static 'img/blog/details/xblog-author.jpg.pagespeed.ic.JiWMRlT1Dz.jpg' %}"
+                                                     alt="">
+                                            </div>
+                                            <div class="blog__details__author__text">
+                                                <h5>Aiden Blair</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+
+
+                                        <div class="blog__details__tags">
+                                            {% for tag in blog.tags.all %}
+                                                <a href="#">#{{ tag.title }}</a>
+                                            {% endfor %}
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="blog__details__btns">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <a href="/blog/detail/{{ prev.id }}/" class="blog__details__btns__item">
+                                            <p><span class="arrow_left"></span> Previous Pod</p>
+                                            <h5>{% if prev %}
+                                            {{  prev.title }} {% else %}
+                                            {% endif %} </h5>
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <a href="/blog/detail/{{ next.id }}/" class="blog__details__btns__item blog__details__btns__item--next">
+                                            <p>Next Pod <span class="arrow_right"></span></p>
+
+                                            <h5> {% if next %}{{ next.title }}{% else %}
+
+                                            {% endif %}</h5>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="blog__details__comment">
+                                <h4>Leave A Comment</h4>
+                                <form method="post">
+                                    {% csrf_token %}
+
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-4">
+                                            {{ form.full_name }}
+                                        </div>
+                                        <div class="col-lg-4 col-md-4">
+                                            {{form.email}}
+                                        </div>
+                                        <div class="col-lg-4 col-md-4">
+                                            {{ form.number }}
+                                        </div>
+                                        <div class="col-lg-12 text-center">
+                                            {{ form.message }}
+                                            <button type="submit" class="site-btn">Post Comment</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+
+
+{% endblock %}

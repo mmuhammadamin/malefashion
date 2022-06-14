@@ -1,0 +1,313 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zxx">
+
+<!-- Mirrored from preview.colorlib.com/theme/malefashion/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 01 Jun 2022 18:22:00 GMT -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Male_Fashion Template">
+    <meta name="keywords" content="Male_Fashion, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Male-Fashion | Template</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&amp;display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="{% static 'css/A.bootstrap.min.css+font-awesome.min.css+elegant-icons.css+magnific-popup.css+nice-select.css+owl.carousel.min.css+slicknav.min.css+style.css,Mcc.f6PPq5zNCp.css' %}"
+          type="text/css"/>
+    <script nonce="ef998463-3648-4881-88cf-0f43439f53b1">(function (w, d) {
+        !function (a, e, t, r) {
+            a.zarazData = a.zarazData || {}, a.zarazData.executed = [], a.zaraz = {deferred: []}, a.zaraz.q = [], a.zaraz._f = function (e) {
+                return function () {
+                    var t = Array.prototype.slice.call(arguments);
+                    a.zaraz.q.push({m: e, a: t})
+                }
+            };
+            for (const e of ["track", "set", "ecommerce", "debug"]) a.zaraz[e] = a.zaraz._f(e);
+            a.addEventListener("DOMContentLoaded", (() => {
+                var t = e.getElementsByTagName(r)[0], z = e.createElement(r), n = e.getElementsByTagName("title")[0];
+                for (n && (a.zarazData.t = e.getElementsByTagName("title")[0].text), a.zarazData.x = Math.random(), a.zarazData.w = a.screen.width, a.zarazData.h = a.screen.height, a.zarazData.j = a.innerHeight, a.zarazData.e = a.innerWidth, a.zarazData.l = a.location.href, a.zarazData.r = e.referrer, a.zarazData.k = a.screen.colorDepth, a.zarazData.n = e.characterSet, a.zarazData.o = (new Date).getTimezoneOffset(), a.zarazData.q = []; a.zaraz.q.length;) {
+                    const e = a.zaraz.q.shift();
+                    a.zarazData.q.push(e)
+                }
+                z.defer = !0;
+                for (const e of [localStorage, sessionStorage]) Object.keys(e).filter((a => a.startsWith("_zaraz_"))).forEach((t => {
+                    try {
+                        a.zarazData["z_" + t.slice(7)] = JSON.parse(e.getItem(t))
+                    } catch {
+                        a.zarazData["z_" + t.slice(7)] = e.getItem(t)
+                    }
+                }));
+                z.referrerPolicy = "origin", z.src = "https://preview.colorlib.com/cdn-cgi/zaraz/s.js?z=" + btoa(encodeURIComponent(JSON.stringify(a.zarazData))), t.parentNode.insertBefore(z, t)
+            }))
+        }(w, d, 0, "script");
+    })(window, document);</script>
+    <style>
+        .col-lg-4.col-md-6.col-sm-6 img {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<div id="preloder">
+    <div class="loader"></div>
+</div>
+
+<div class="offcanvas-menu-overlay"></div>
+<div class="offcanvas-menu-wrapper">
+    <div class="offcanvas__option">
+        <div class="offcanvas__links">
+            <a href="#">Sign in</a>
+            <a href="#">FAQs</a>
+        </div>
+        <div class="offcanvas__top__hover">
+            <span>Usd <i class="arrow_carrot-down"></i></span>
+            <ul>
+                <li>USD</li>
+                <li>EUR</li>
+                <li>USD</li>
+            </ul>
+        </div>
+    </div>
+    <div class="offcanvas__nav__option">
+        <a href="#" class="search-switch"><img src="{% static 'img/icon/xsearch.png.pagespeed.ic.y-8fLDHdJm.png' %}"
+                                               alt=""></a>
+        <a href="#"><img src="{% static 'img/icon/xheart.png.pagespeed.ic.eX6BmaqN_X.png' %}" alt=""></a>
+        <a href="#"><img src="{% static 'img/icon/xcart.png.pagespeed.ic.bfUgeYGK3w.png' %}" alt=""> <span>0</span></a>
+        <div class="price">$0.00</div>
+    </div>
+    <div id="mobile-menu-wrap"></div>
+    <div class="offcanvas__text">
+        <p>Free shipping, 30-day return or refund guarantee.</p>
+    </div>
+</div>
+
+
+<header class="header">
+    <div class="header__top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-7">
+                    <div class="header__top__left">
+                        <p>Free shipping, 30-day return or refund guarantee.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-5">
+                    <div class="header__top__right">
+                        <div class="header__top__links">
+                            <a href="#">Sign in</a>
+                            <a href="#">FAQs</a>
+                        </div>
+                        <div class="header__top__hover">
+                            <span>Usd <i class="arrow_carrot-down"></i></span>
+                            <ul>
+                                <li>USD</li>
+                                <li>EUR</li>
+                                <li>USD</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-3">
+                <div class="header__logo">
+                    <a href="/"><img src="{% static 'img/xlogo.png.pagespeed.ic.bRn77subJp.png' %}" alt=""></a>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <nav class="header__menu mobile-menu">
+                    <ul>
+                        <li class="active"><a href="/">Home</a></li>
+                        <li><a href="/shop/">Shop</a></li>
+                        <li><a href="#">Pages</a>
+                            <ul class="dropdown">
+                                <li><a href="/blog/about">About Us</a></li>
+                                <li><a href="/shop/">Shop Details</a></li>
+                                <li><a href="shopping-cart.html">Shopping Cart</a></li>
+                                <li><a href="checkout.html">Check Out</a></li>
+                                <li><a href="blog-details.html">Blog Details</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/contact/">Contacts</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-lg-3 col-md-3">
+                <div class="header__nav__option">
+                    <a href="/search/" class="search-switch"><img
+                            src="{% static 'img/icon/xsearch.png.pagespeed.ic.y-8fLDHdJm.png' %}"
+                            alt="">
+
+                    </a>
+                    <a href="/carts/wishlist/"><img src="{% static 'img/icon/xheart.png.pagespeed.ic.eX6BmaqN_X.png' %}"
+                                              alt="">
+
+                        {% if request.user.is_authenticated %}
+                            <span style="">{{ request.user.wishlist_set.all.count }} </span></a>
+
+                        {% else %}
+                            <span style="">0 </span></a>
+                        {% endif %}
+
+                    <a href="#"><img src="{% static 'img/icon/xcart.png.pagespeed.ic.bfUgeYGK3w.png' %}" alt="">
+                        <span>0</span></a>
+                    <div class="price">$0.00</div>
+                </div>
+            </div>
+        </div>
+        <div class="canvas__open"><i class="fa fa-bars"></i></div>
+    </div>
+</header>
+
+{% block content %}
+
+{% endblock %}
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="footer__about">
+                    <div class="footer__logo">
+                        <a href="#"><img src="img/xfooter-logo.png.pagespeed.ic.5uVqqRC5Fm.png" alt=""></a>
+                    </div>
+                    <p>The customer is at the heart of our unique business model, which includes design.</p>
+                    <a href="#"><img src="img/xpayment.png.pagespeed.ic.jyKRwIPdRp.png" alt=""></a>
+                </div>
+            </div>
+            <div class="col-lg-2 offset-lg-1 col-md-3 col-sm-6">
+                <div class="footer__widget">
+                    <h6>Shopping</h6>
+                    <ul>
+                        <li><a href="#">Clothing Store</a></li>
+                        <li><a href="#">Trending Shoes</a></li>
+                        <li><a href="#">Accessories</a></li>
+                        <li><a href="#">Sale</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-6">
+                <div class="footer__widget">
+                    <h6>Shopping</h6>
+                    <ul>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Payment Methods</a></li>
+                        <li><a href="#">Delivary</a></li>
+                        <li><a href="#">Return & Exchanges</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-3 offset-lg-1 col-md-6 col-sm-6">
+                <div class="footer__widget">
+                    <h6>NewLetter</h6>
+                    <div class="footer__newslatter">
+                        <p>Be the first to know about new arrivals, look books, sales & promos!</p>
+                        <form action="#">
+                            <input type="text" placeholder="Your email">
+                            <button type="submit"><span class="icon_mail_alt"></span></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="footer__copyright__text">
+
+                    <p>Copyright ©
+                        <script>
+                            document.write(new Date().getFullYear());
+                        </script>
+                        2020
+                        All rights reserved | This template is made with <i class="fa fa-heart-o"
+                                                                            aria-hidden="true"></i> by <a
+                                href="https://colorlib.com/" target="_blank">Colorlib</a>
+                    </p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<div class="search-model">
+    <div class="h-100 d-flex align-items-center justify-content-center">
+        <div class="search-close-switch">+</div>
+        <form class="search-model-form">
+            <input type="text" id="search-input" placeholder="Search here.....">
+        </form>
+    </div>
+</div>
+
+
+<script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js%2bjquery.nice-select.min.js.pagespeed.jc.ekxuW4by58.js' %}"></script>
+<script>eval(mod_pagespeed_JZzsHwPKPa);</script>
+<script>eval(mod_pagespeed_yAX9X7dlYR);</script>
+<script src="{% static 'js/jquery.nicescroll.min.js%2bjquery.magnific-popup.min.js%2bjquery.countdown.min.js.pagespeed.jc.nQBr1vqAX8.js' %}"></script>
+<script>eval(mod_pagespeed_ICtRagVbiv);</script>
+<script>eval(mod_pagespeed_0Tm96Yey2q);</script>
+<script>eval(mod_pagespeed__0kegk3Rgl);</script>
+<script src="{% static 'js/jquery.slicknav.js' %}"></script>
+<script src="{% static 'js/mixitup.min.js' %}"></script>
+<script src="{% static 'js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+<script>
+
+    $('.add-wishlist').on('click', function () {
+
+        let _pid = $(this).data('product')
+        let _vm = $(this)
+        //alert(_pid)
+
+        $.ajax({
+            url: '/carts/add-wishlist/',
+            data: {
+                _pid
+            },
+            dataType: 'json',
+            success: function (res) {
+                console.log(res)
+                if (res.success === true) {
+                    _vm.removeClass('add-wishlist').addClass('disabled')
+
+                    alert(res.product + ' is saved')
+
+                    location.reload()
+                } else {
+                    alert(res.product + ' already in ur wishlist')
+                }
+            }
+        })
+    })
+
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'UA-23581568-13');
+</script>
+
+
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v652eace1692a40cfa3763df669d7439c1639079717194"
+        integrity="sha512-Gi7xpJR8tSkrpF7aordPZQlW2DLtzUlZcumS8dMQjwDHEnw9I7ZLyiOj/6tZStRBGtGgN6ceN6cMH8z7etPGlw=="
+        data-cf-beacon='{"rayId":"7149f8de8d036e3a","token":"cd0b4b3a733644fc843ef0b185f98241","version":"2021.12.0","si":100}'
+        crossorigin="anonymous"></script>
+</body>
+
+<!-- Mirrored from preview.colorlib.com/theme/malefashion/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 01 Jun 2022 18:22:29 GMT -->
+</html>
