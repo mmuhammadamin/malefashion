@@ -1,4 +1,7 @@
 {% load static %}
+{% load cart_tag %}
+
+{% get_user_cart as cart %}
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -56,35 +59,6 @@
     <div class="loader"></div>
 </div>
 
-<div class="offcanvas-menu-overlay"></div>
-<div class="offcanvas-menu-wrapper">
-    <div class="offcanvas__option">
-        <div class="offcanvas__links">
-            <a href="#">Sign in</a>
-            <a href="#">FAQs</a>
-        </div>
-        <div class="offcanvas__top__hover">
-            <span>Usd <i class="arrow_carrot-down"></i></span>
-            <ul>
-                <li>USD</li>
-                <li>EUR</li>
-                <li>USD</li>
-            </ul>
-        </div>
-    </div>
-    <div class="offcanvas__nav__option">
-        <a href="#" class="search-switch"><img src="{% static 'img/icon/xsearch.png.pagespeed.ic.y-8fLDHdJm.png' %}"
-                                               alt=""></a>
-        <a href="#"><img src="{% static 'img/icon/xheart.png.pagespeed.ic.eX6BmaqN_X.png' %}" alt=""></a>
-        <a href="#"><img src="{% static 'img/icon/xcart.png.pagespeed.ic.bfUgeYGK3w.png' %}" alt=""> <span>0</span></a>
-        <div class="price">$0.00</div>
-    </div>
-    <div id="mobile-menu-wrap"></div>
-    <div class="offcanvas__text">
-        <p>Free shipping, 30-day return or refund guarantee.</p>
-    </div>
-</div>
-
 
 <header class="header">
     <div class="header__top">
@@ -98,7 +72,7 @@
                 <div class="col-lg-6 col-md-5">
                     <div class="header__top__right">
                         <div class="header__top__links">
-                            <a href="#">Sign in</a>
+                            <a href="/accounts/login/">Sign in</a>
                             <a href="#">FAQs</a>
                         </div>
                         <div class="header__top__hover">
@@ -129,10 +103,8 @@
                         <li><a href="#">Pages</a>
                             <ul class="dropdown">
                                 <li><a href="/blog/about">About Us</a></li>
-                                <li><a href="/shop/">Shop Details</a></li>
                                 <li><a href="shopping-cart.html">Shopping Cart</a></li>
                                 <li><a href="checkout.html">Check Out</a></li>
-                                <li><a href="blog-details.html">Blog Details</a></li>
                             </ul>
                         </li>
                         <li><a href="/blog/">Blog</a></li>
@@ -148,7 +120,7 @@
 
                     </a>
                     <a href="/carts/wishlist/"><img src="{% static 'img/icon/xheart.png.pagespeed.ic.eX6BmaqN_X.png' %}"
-                                              alt="">
+                                                    alt="">
 
                         {% if request.user.is_authenticated %}
                             <span style="">{{ request.user.wishlist_set.all.count }} </span></a>
@@ -158,7 +130,12 @@
                         {% endif %}
 
                     <a href="#"><img src="{% static 'img/icon/xcart.png.pagespeed.ic.bfUgeYGK3w.png' %}" alt="">
-                        <span>0</span></a>
+                        {% if request.user.is_authenticated %}
+
+                            <span>{{ cart.get_cart_items }}</span></a>
+                        {% else %}
+                            <span style="">0 </span></a>
+                        {% endif %}
                     <div class="price">$0.00</div>
                 </div>
             </div>
@@ -286,9 +263,30 @@
                     location.reload()
                 } else {
                     alert(res.product + ' already in ur wishlist')
+                    location.reload()
+
                 }
             }
-        })
+        });
+    });
+
+    $('.add-cart').on('click', function () {
+        let _pid = $(this).data('product')
+
+        $.ajax(
+            {
+                url: '/carts/add-cart',
+                data: {
+                    _pid
+                },
+                method: 'get',
+                dataType: 'json',
+                success: function (res) {
+                    alert(res.product + ' added to cart')
+                    location.reload()
+                }
+            }
+        )
     })
 
     window.dataLayer = window.dataLayer || [];

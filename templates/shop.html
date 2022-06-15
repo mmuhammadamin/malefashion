@@ -100,7 +100,7 @@
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <div class="shop__product__option__left">
-                                    <p>Showing of 126 results</p>
+                                    <p>Showing {{product.start_index}}-{{  product.end_index  }} out of {{ p.count }} results</p>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6">
@@ -108,15 +108,16 @@
                                     <p>Sort by Price:</p>
                                     <select>
                                         <option value="">Low To High</option>
-                                        <option value="">$0 - $55</option>
-                                        <option value="">$55 - $100</option>
+                                        {% for f_price in filter_price %}
+                                        <option value="/shop/?filter_price={{f_price.id  }}">{{ f_price.price }}</option>
+                                        {% endfor %}
                                     </select>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        {% for product in products %}
+                        {% for product in product %}
                             <div class="col-lg-4 col-md-6 col-sm-6">
                                 <div class="product__item">
                                     <div class="product__item__pic set-bg"
@@ -131,7 +132,7 @@
                                                 {#                                            src="{% static 'img/icon/xcompare.png.pagespeed.ic.UIWeUFOM61.png' %}"#}
                                                 {#                                            alt=""> <span>Compare</span></a>#}
                                                 {#                                    </li>#}
-                                                <li><a class="add-cart"><img
+                                                <li><a class="#"><img
                                                         src="{% static 'img/icon/xsearch.png.pagespeed.ic.y-8fLDHdJm.png' %}"
                                                         alt=""></a>
                                                 </li>
@@ -144,7 +145,7 @@
                                     </div>
                                     <div class="product__item__text">
                                         <h6>{{ product.name }}</h6>
-                                        <a href=" {% url "products:detail" product.id %}" class="add-cart">+ Add To
+                                        <a href=" " data-product="{{ product.id }}" class="add-cart">+ Add To
                                             Cart</a>
                                         <div class="rating">
                                             <i class="fa fa-star-o"></i>
@@ -175,12 +176,17 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
-                            <div class="product__pagination">
-                                <a class="active" href="#">1</a>
-                                <a href="#">2</a>
-                                <a href="#">3</a>
-                                <span>...</span>
-                                <a href="#">21</a>
+                            <div class="product__pagination" style="text-align: center">
+
+                                    {% if  product.has_previous %}
+                                      <a href="?page={{ product.previous_page_number }}"><--</a>
+                                    {% endif %}
+                                    {% for page in list %}
+                                        <a href="?page={{ page }}">{{ page }}</a>
+                                    {% endfor %}
+                                    {% if  product.has_next %}
+                                        <a href="?page={{ product.next_page_number }}"> --></a>
+                                    {% endif %}
                             </div>
                         </div>
                     </div>

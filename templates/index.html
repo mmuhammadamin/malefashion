@@ -113,27 +113,29 @@
                                 <span class="label">{{ product.condition }}</span>
                                 <ul class="product__hover">
 
-                                    {%  if request.user.is_authenticated %}
-                                    <li><a class="add-wishlist" data-product="{{ product.id }}" ><img
-                                            src="{% static 'img/icon/xheart.png.pagespeed.ic.eX6BmaqN_X.png' %}"
-                                        alt=""></a></li>
-                                    {#                                    <li><a href="#"><img#}
-                                    {#                                            src="{% static 'img/icon/xcompare.png.pagespeed.ic.UIWeUFOM61.png' %}"#}
-                                    {#                                            alt=""> <span>Compare</span></a>#}
-                                    {#                                    </li>#}
-                                    <li><a class="add-cart"><img
-                                            src="{% static 'img/icon/xsearch.png.pagespeed.ic.y-8fLDHdJm.png' %}"
-                                            alt=""></a>
-                                    </li>
-                                        {% else %}
-                                        <p style="background-color:beige;color: #343a40"> <a href="accounts/login"> firstly you should log in</a> </p>
+                                    {% if request.user.is_authenticated %}
+                                        <li><a class="add-wishlist" data-product="{{ product.id }}"><img
+                                                src="{% static 'img/icon/xheart.png.pagespeed.ic.eX6BmaqN_X.png' %}"
+                                                alt=""></a>
+                                        </li>
+                                        {#                                    <li><a href="#"><img#}
+                                        {#                                            src="{% static 'img/icon/xcompare.png.pagespeed.ic.UIWeUFOM61.png' %}"#}
+                                        {#                                            alt=""> <span>Compare</span></a>#}
+                                        {#                                    </li>#}
+                                        <li><a class="#"><img
+                                                src="{% static 'img/icon/xsearch.png.pagespeed.ic.y-8fLDHdJm.png' %}"
+                                                alt=""></a>
+                                        </li>
+                                    {% else %}
+                                        <p style="background-color:beige;color: #343a40"><a href="accounts/login">
+                                            firstly you should log in</a></p>
                                     {% endif %}
                                 </ul>
                             </div>
 
                             <div class="product__item__text">
                                 <h6>{{ product.name }}</h6>
-                                <a href="#" class="add-cart">+ Add To Cart</a>
+                                <a href="" class="add-cart" data-product="{{ product.id }}">+ Add To Cart</a>
                                 <div class="rating">
                                     <i class="fa fa-star-o"></i>
                                     <i class="fa fa-star-o"></i>

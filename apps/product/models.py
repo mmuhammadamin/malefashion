@@ -51,6 +51,7 @@ class Product(Timestamp):
     condition = models.CharField(max_length=20, blank=True)
     category_shop = models.ManyToManyField(Category, limit_choices_to={'font_type__lt': 4})
 
+
     @property
     def normalize_title(self):
         return self.name.replace(' ', '').lower()
@@ -92,6 +93,7 @@ class Rate(Timestamp):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     rate = models.IntegerField()
+
 
     def __str__(self):
         return f'Rate of {self.user.username}'

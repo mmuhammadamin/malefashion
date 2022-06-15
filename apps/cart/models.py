@@ -9,15 +9,15 @@ from apps.product.models import Product
 
 class WishList(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product,on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
 
     def __str__(self):
         return f'Wishlist of {self.user.username} (id:{self.id})'
 
 
 class Cart(models.Model):
-    client = models.OneToOneField(User, on_delete=models.CASCADE)
-    cart_total_price = models.FloatField(null=True)
+    client = models.ForeignKey(User, on_delete=models.CASCADE)
+    is_ordered = models.BooleanField(default=False)
 
     @property
     def get_cart_items(self):
@@ -28,22 +28,23 @@ class Cart(models.Model):
     @property
     def get_total_price(self):
         cart_items = self.cart_items.all()
-        total = sum([item.total for item in cart_items])
+        total = sum([item.get_total for item in cart_items])
         return total
 
     def __str__(self):
         return f'order of {self.client} (id: {self.id})'
 
 
-
 class CartItem(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.SET_NULL, null=True, related_name="cart_items")
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
     quantity = models.IntegerField(null=True, default=1)
-    total = models.FloatField(null=True)
-
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    @property
+    def get_total(self):
+        return self.quantity*self.product.price
 
 
 class Order(models.Model):
@@ -60,7 +61,6 @@ class Order(models.Model):
     client = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     phone = models.CharField(max_length=21)
     note = models.TextField(null=True, blank=True)
-    order_total_price = models.FloatField(null=True)
     status = models.IntegerField(choices=STATUS, default=0)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -68,12 +68,3 @@ class Order(models.Model):
         return f'order of {self.client} (id: {self.id}) | {self.transaction_id}'
 
 
-
-def cart_item_post_save(sender, instance, created, *args, **kwargs):
-    if created:
-        total_price = instance.quantity * instance.product.price
-        instance.total = total_price
-        instance.save()
-
-
-post_save.connect(cart_item_post_save, sender=CartItem)
