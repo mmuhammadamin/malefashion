@@ -8,6 +8,7 @@ from .models import Post, Tag
 
 # Create your views here.
 def blog_list(request):
+
     blogs = Post.objects.order_by('-id')[:9]
 
     ctx = {

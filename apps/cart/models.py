@@ -63,6 +63,7 @@ class Order(models.Model):
     note = models.TextField(null=True, blank=True)
     status = models.IntegerField(choices=STATUS, default=0)
     created_at = models.DateTimeField(auto_now_add=True)
+    addres=models.CharField(max_length=50)
 
     def __str__(self):
         return f'order of {self.client} (id: {self.id}) | {self.transaction_id}'

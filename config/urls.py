@@ -19,11 +19,11 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-                  path('admin/', admin.site.urls),
-                  path('blog/', include('apps.blog.urls', namespace='blog')),
-                  path('', include('apps.product.urls', namespace='home')),
-                  path('contact/', include('apps.contacts.urls', namespace='contact')),
-                  path('carts/', include('apps.cart.urls', namespace='carts')),
-                  path('accounts/', include('allauth.urls')),
+                path('accounts/', include('allauth.urls')),
+                path('admin/', admin.site.urls),
+                path('blog/', include('apps.blog.urls', namespace='blog')),
+                path('', include('apps.product.urls', namespace='home')),
+                path('contact/', include('apps.contacts.urls', namespace='contact')),
+                path('carts/', include('apps.cart.urls', namespace='carts')),
 
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

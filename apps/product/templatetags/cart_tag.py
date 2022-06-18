@@ -8,6 +8,6 @@ register = template.Library()
 @register.simple_tag(takes_context=True)
 def get_user_cart(context):
     request = context['request']
-    user=request.user
-    cart=Cart.objects.get(client=user,is_ordered=False)
+    user = request.user
+    cart = Cart.objects.filter(client=user, is_ordered=False).first()
     return cart

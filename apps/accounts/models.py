@@ -1,6 +1,3 @@
-from django.db import models
-
-# Create your models here.
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_save
@@ -25,5 +22,4 @@ def user_post_save(instance, sender, created, *args, **kwargs):
 @receiver(post_save, sender=User)
 def user_profile_post_save(instance, sender, *args, **kwargs):
     instance.profile.save()
-
 

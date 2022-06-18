@@ -65,10 +65,13 @@
                                                                     {% endif %}
 
                                                                     {% if child_cat.font_type == 2 %}
-                                                                        <label style="background-color:{{ child_cat }}"
-                                                                               for="{{ child_cat }}">
+                                                                        <a href="?q={{ child_cat.name|slice:"1:" }}">
+                                                                            <span>
+                                                                            <label
+                                                                                style="background-color:{{ child_cat }}"
+                                                                                for="{{ child_cat.name|slice:"1:" }}">
                                                                             <input type="radio" id="{{ child_cat }}">
-                                                                        </label>
+                                                                        </label></span></a>
                                                                     {% endif %}
 
                                                                     {% if child_cat.font_type == 3 %}
@@ -100,7 +103,8 @@
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <div class="shop__product__option__left">
-                                    <p>Showing {{product.start_index}}-{{  product.end_index  }} out of {{ p.count }} results</p>
+                                    <p>Showing {{ product.end_index }} out of {{ p.count }}
+                                        results</p>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6">
@@ -109,7 +113,7 @@
                                     <select>
                                         <option value="">Low To High</option>
                                         {% for f_price in filter_price %}
-                                        <option value="/shop/?filter_price={{f_price.id  }}">{{ f_price.price }}</option>
+                                            <option value="/shop/?filter_price={{ f_price.id }}">{{ f_price.price }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
@@ -132,7 +136,7 @@
                                                 {#                                            src="{% static 'img/icon/xcompare.png.pagespeed.ic.UIWeUFOM61.png' %}"#}
                                                 {#                                            alt=""> <span>Compare</span></a>#}
                                                 {#                                    </li>#}
-                                                <li><a class="#"><img
+                                                <li><a class="#" href="{% url 'products:detail' product.id %}"><img
                                                         src="{% static 'img/icon/xsearch.png.pagespeed.ic.y-8fLDHdJm.png' %}"
                                                         alt=""></a>
                                                 </li>
@@ -145,7 +149,7 @@
                                     </div>
                                     <div class="product__item__text">
                                         <h6>{{ product.name }}</h6>
-                                        <a href=" " data-product="{{ product.id }}" class="add-cart">+ Add To
+                                        <a href="#" data-product="{{ product.id }}" class="add-cart">+ Add To
                                             Cart</a>
                                         <div class="rating">
                                             <i class="fa fa-star-o"></i>
@@ -157,13 +161,13 @@
                                         <h5>{{ product.price }}</h5>
                                         <div class="product__color__select">
                                             {% for child_cat in cats %}
-                                                {% if child_cat.parent_category == color %}
+                                                {% if child_cat.parent_category == Color %}
 
-                                                    {% if child_cat.font_type == 2 %}
-                                                        <li>
-                                                            <a href="/shop/?q={{ child_cat }}">{{ child_cat }}</a>
-                                                        </li>
-                                                    {% endif %}
+                                                    <a><label
+                                                            style="background-color:{{ child_cat }}"
+                                                            for="{{ child_cat }}">
+                                                        <input type="radio" id="{{ child_cat }}">
+                                                    </label></a>
 
                                                 {% endif %}
                                             {% endfor %}
@@ -178,15 +182,15 @@
                         <div class="col-lg-12">
                             <div class="product__pagination" style="text-align: center">
 
-                                    {% if  product.has_previous %}
-                                      <a href="?page={{ product.previous_page_number }}"><--</a>
-                                    {% endif %}
-                                    {% for page in list %}
-                                        <a href="?page={{ page }}">{{ page }}</a>
-                                    {% endfor %}
-                                    {% if  product.has_next %}
-                                        <a href="?page={{ product.next_page_number }}"> --></a>
-                                    {% endif %}
+                                {% if  product.has_previous %}
+                                    <a href="?page={{ product.previous_page_number }}"><--</a>
+                                {% endif %}
+                                {% for page in list %}
+                                    <a href="?page={{ page }}">{{ page }}</a>
+                                {% endfor %}
+                                {% if  product.has_next %}
+                                    <a href="?page={{ product.next_page_number }}"> --></a>
+                                {% endif %}
                             </div>
                         </div>
                     </div>

@@ -8,6 +8,9 @@ from .models import Category, Product, ProductImage, Rate,Category_name
 class ProductImageInline(admin.TabularInline):
     model = ProductImage
     extra = 1
+class Product_Admin(admin.TabularInline):
+    model = Product
+    extra = 1
 
 
 class RateInline(admin.TabularInline):
@@ -23,6 +26,8 @@ class CategoryAdmin(admin.ModelAdmin):
 
     list_filter = ('font_type', 'parent_category')
     list_display = ('id', 'name', 'parent_category')
+
+
 
 
 admin.site.register(Category, CategoryAdmin)

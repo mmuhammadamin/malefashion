@@ -1,7 +1,9 @@
 {% load static %}
 {% load cart_tag %}
-
+{% if request.user.is_authenticted %}
 {% get_user_cart as cart %}
+{% endif %}
+
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -100,12 +102,8 @@
                     <ul>
                         <li class="active"><a href="/">Home</a></li>
                         <li><a href="/shop/">Shop</a></li>
-                        <li><a href="#">Pages</a>
-                            <ul class="dropdown">
-                                <li><a href="/blog/about">About Us</a></li>
-                                <li><a href="shopping-cart.html">Shopping Cart</a></li>
-                                <li><a href="checkout.html">Check Out</a></li>
-                            </ul>
+                        <li><a href="/blog/about">About Us</a></li>
+
                         </li>
                         <li><a href="/blog/">Blog</a></li>
                         <li><a href="/contact/">Contacts</a></li>
@@ -114,29 +112,31 @@
             </div>
             <div class="col-lg-3 col-md-3">
                 <div class="header__nav__option">
-                    <a href="/search/" class="search-switch"><img
-                            src="{% static 'img/icon/xsearch.png.pagespeed.ic.y-8fLDHdJm.png' %}"
+                    <form method="get" action="/">
+                        <input type="search" name="search" placeholder="Search...">
+                        {#                                <button type="submit"><span class="icon_search"></span></button>#}
+                    </form>
+                    <a style="font-size: 20px" href="{% url 'carts:my_wishlist' %}"><img
+                            src="{% static 'img/icon/xheart.png.pagespeed.ic.eX6BmaqN_X.png' %}"
                             alt="">
 
-                    </a>
-                    <a href="/carts/wishlist/"><img src="{% static 'img/icon/xheart.png.pagespeed.ic.eX6BmaqN_X.png' %}"
-                                                    alt="">
-
                         {% if request.user.is_authenticated %}
-                            <span style="">{{ request.user.wishlist_set.all.count }} </span></a>
+                            <span>{{ request.user.wishlist_set.all.count }} </span>
 
                         {% else %}
-                            <span style="">0 </span></a>
+                            <span style="">0 </span>
                         {% endif %}
+                    </a>
 
-                    <a href="#"><img src="{% static 'img/icon/xcart.png.pagespeed.ic.bfUgeYGK3w.png' %}" alt="">
+                    <a href="/carts/my-cart/"><img src="{% static 'img/icon/xcart.png.pagespeed.ic.bfUgeYGK3w.png' %}"
+                                                   alt="">
                         {% if request.user.is_authenticated %}
 
                             <span>{{ cart.get_cart_items }}</span></a>
                         {% else %}
                             <span style="">0 </span></a>
                         {% endif %}
-                    <div class="price">$0.00</div>
+                    <div class="price">{{ cart.get_cart_total }}</div>
                 </div>
             </div>
         </div>
@@ -288,6 +288,50 @@
             }
         )
     })
+
+    $('.dec').on('click', function () {
+        let _ciid = $(this).next().data('cart_item_id');
+        $.ajax({
+            url: '/carts/minus-quantity/',
+            data: {
+                _ciid
+            },
+            dataType: 'json',
+            success: function (res) {
+                location.reload()
+            }
+        });
+    });
+    $('.inc').on('click', function () {
+        let _ciid = $(this).prev().data('cart_item_id')
+        $.ajax({
+            url: '/carts/plus-quantity/',
+            data: {
+                _ciid
+            },
+            dataType: 'json',
+            success: function (res) {
+                $(this).prev().val() === res.cart_item.get_total
+                location.reload()
+            }
+        });
+    });
+
+    $('.fa-close').on('click', function () {
+        let _ciid = $(this).data('cart_item_id')
+        $.ajax({
+            url: '/carts/delete-cart-item-view/',
+            data: {
+                _ciid
+            },
+            dataType: 'json',
+            success: function (res) {
+                $(this).prev().val() === res.cart_item.get_total
+                location.reload()
+            }
+        })
+    })
+
 
     window.dataLayer = window.dataLayer || [];
 
