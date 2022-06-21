@@ -2,7 +2,8 @@ from django.core.paginator import Paginator
 from django.shortcuts import render
 
 from apps.blog.models import Post
-from .models import Category, Product, ProductImage, Category_name
+from .models import Category, ProductImage, Category_name, Product
+from ..cart.models import Cart
 
 
 def product_view(request):
@@ -17,7 +18,7 @@ def product_view(request):
         'blogs': blogs,
         'categories': categories,
         'product_image': product_image,
-        'categories_name': categories_name
+        'categories_name': categories_name,
 
     }
     return render(request, 'index.html', ctx)
@@ -29,11 +30,14 @@ def shop_view(request):
     products = Product.objects.order_by('-id')
     w = request.GET.get('search')
     q = request.GET.get('q')
+    s=request.GET.get('s')
 
     if w:
         products = products.filter(name__icontains=w)
     if q:
-        products = products.filter(category_shop__name__icontains=q)
+        products = products.filter(category_shop__name__iexact=q)
+    if s:
+        products = products.filter(category_shop__name__icontains=s)
 
     product_image = ProductImage.objects.all()
     cats = Category.objects.all()
@@ -68,13 +72,19 @@ def shop_detailed_view(request, pk):
     products = Product.objects.order_by('-id')
     product = Product.objects.get(id=pk)
     last_products = Product.objects.order_by('category_shop')[0:4]
+    cart, cart = Cart.objects.get_or_create(client=request.user, is_ordered=False)
+
 
     ctx = {
         'products': products,
         'product': product,
-        'last_products': last_products
+        'last_products': last_products,
+        'cart':cart
     }
 
     return render(request, 'shop-details.html', ctx)
 
 # Create your views here.
+
+
+

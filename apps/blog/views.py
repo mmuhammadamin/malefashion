@@ -1,6 +1,7 @@
 from django.shortcuts import render
 
 from .models import Post, Tag
+from .forms import CommentForm
 
 
 # Create your views here.
@@ -22,12 +23,15 @@ def blog_detail(request,pk):
     blog = Post.objects.get(id=pk)
 
     tag = Tag.objects.all()
+    form = CommentForm(request.POST or None)
+    if form.is_valid():
+        form.save()
 
     ctx = {
         'blogs': blogs,
         'tag': tag,
         'blog': blog,
-
+        'form':form
     }
     try:
         prev = Post.objects.get(id=pk-1)

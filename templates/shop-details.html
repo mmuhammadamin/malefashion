@@ -71,44 +71,64 @@
                                 <i class="fa fa-star-o"></i>
                                 <span> - 5 Reviews</span>
                             </div>
-                            <h3>{{ product.price }} <span>70.00</span></h3>
+                            <h3>{{ product.price }} </h3>
                             <p>{{ product.description }}</p>
                             <div class="product__details__option">
                                 <div class="product__details__option__size">
                                     <span>Size:</span>
-                                    <label for="{{ product.category_shop.square }}">{{ product.category_shop.square }}
-                                        <input type="radio" id="{{ product.category_shop.square }}">
-                                    </label>
+                                    {% for product in product.category_shop.all %}
+
+                                        {% if product.font_type is 1 %}
+                                            <label for="{{ product }}">{{ product }}
+                                                <input type="radio" id="{{ product }}">
+                                            </label>
+                                        {% endif %}
+                                    {% endfor %}
 
                                 </div>
                                 <div class="product__details__option__color">
+
                                     <span>Color:</span>
-                                    <label class="c-1" for="sp-1">
-                                        <input type="radio" id="sp-1">
-                                    </label>
+                                    {% for product in product.category_shop.all %}
+
+                                        {% if product.font_type is 2 %}
+
+                                            <label style="background-color: {{ product }}"
+                                                   class="{{ product|slice:"1:" }}" for="{{ product|slice:"1:" }}">
+                                                <input type="radio" id="{{ product|slice:"1:" }}">
+                                            </label>
+                                        {% endif %}
+                                    {% endfor %}
 
                                 </div>
                             </div>
                             <div class="product__details__cart__option">
-                                <div class="quantity">
-                                    <div class="pro-qty">
-                                        <input type="text" value="1">
-                                    </div>
-                                </div>
-                                <a href="#" class="primary-btn">add to cart</a>
+
+                                <a data-product="{{ product.id }}" class="add-cart primary-btn"
+                                   style="color: cornsilk;cursor: pointer">add to cart</a>
                             </div>
                             <div class="product__details__btns__option">
-                                <a href="#"><i class="fa fa-heart"></i> add to wishlist</a>
-                                <a href="#"><i class="fa fa-exchange"></i> Add To Compare</a>
+                                <a class="add-wishlist" style=" cornsilk;cursor: pointer"
+                                   data-product="{{ product.id }}"><img
+                                        src="{% static 'img/icon/xheart.png.pagespeed.ic.eX6BmaqN_X.png' %}"
+                                        alt=""> Add to wishlist</a>
                             </div>
                             <div class="product__details__last__option">
                                 <h5><span>Guaranteed Safe Checkout</span></h5>
                                 <img src="{% static 'img/shop-details/xdetails-payment.png.pagespeed.ic.aQqwzUH4EW.png' %}"
                                      alt="">
                                 <ul>
-                                    <li><span>SKU:</span> 3812912</li>
-                                    <li><span>Categories:</span> {{ products.category_shop.parent_category }}</li>
-                                    <li><span>Tag:</span> {{ products.tags }}</li>
+                                    {% for product in product.category_shop.all %}
+                                        {% if product.font_type is 0 %}
+                                            <li><span>Categories:</span> {{ product }}</li>
+                                        {% endif %}
+
+                                        {% if product.font_type is 3 %}
+
+                                            <li><span>Tag:</span> {{ product }}</li>
+                                        {% endif %}
+                                    {% endfor %}
+
                                 </ul>
                             </div>
                         </div>
@@ -255,12 +275,13 @@
                                  data-setbg="{{ last.image.url }}">
                                 <span class="label">{{ last.condition }}</span>
                                 <ul class="product__hover">
-                                    <li><a href="#"><img src="{% static 'img/icon/xheart.png.pagespeed.ic.eX6BmaqN_X.png' %}"
-                                                         alt=""></a></li>
-                                    <li><a href="#"><img src="{% static 'img/icon/xcompare.png.pagespeed.ic.UIWeUFOM61.png' %}" alt="">
-                                        <span>Compare</span></a>
-                                    </li>
-                                    <li><a href="#"><img src="{% static 'img/icon/xsearch.png.pagespeed.ic.y-8fLDHdJm.png' %}" alt=""></a>
+                                    <li><a class="add-wishlist" style="cursor: pointer" data-product="{{ product.id }}"><img
+                                            src="{% static 'img/icon/xheart.png.pagespeed.ic.eX6BmaqN_X.png' %}"
+                                            alt=""></a></li>
+                                    <li><a class="#" style="cursor: pointer"
+                                           href="{% url 'products:detail' product.id %}"><img
+                                            src="{% static 'img/icon/xsearch.png.pagespeed.ic.y-8fLDHdJm.png' %}"
+                                            alt=""></a>
                                     </li>
                                 </ul>
                             </div>

@@ -58,17 +58,22 @@
 
 
                                                                     {% if child_cat.font_type == 1 %}
-                                                                        <label for="{{ child_cat.normalize_title }}">{{ child_cat }}
-                                                                            <input type="radio"
-                                                                                   id="{{ child_cat.normalize_title }}">
-                                                                        </label>
+                                                                        <a style="color: black;cursor: pointer"
+                                                                           href="?q={{ child_cat.name }}">
+                                                                            <label for="{{ child_cat.name }}">
+                                                                                {{ child_cat }}
+                                                                                <input type="button"
+                                                                                       id="{{ child_cat }}">
+                                                                            </label></a>
                                                                     {% endif %}
-
                                                                     {% if child_cat.font_type == 2 %}
-                                                                        <label style="background-color:{{ child_cat }}"
-                                                                               for="{{ child_cat }}">
+                                                                        <a href="?s={{ child_cat.name|slice:"1:" }}">
+                                                                            <span>
+                                                                            <label
+                                                                                    style="background-color:{{ child_cat }}"
+                                                                                    for="{{ child_cat.name|slice:"1:" }}">
                                                                             <input type="radio" id="{{ child_cat }}">
-                                                                        </label>
+                                                                        </label></span></a>
                                                                     {% endif %}
 
                                                                     {% if child_cat.font_type == 3 %}
@@ -100,7 +105,7 @@
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <div class="shop__product__option__left">
-                                    <p>Showing {{ product.start_index }}-{{ product.end_index }} out of {{ p.count }}
+                                    <p>Showing {{ product.end_index }} out of {{ p.count }}
                                         results</p>
                                 </div>
                             </div>
@@ -124,14 +129,8 @@
                                          data-setbg="{{ product.product.image.url }}">
                                         <ul class="product__hover">
 
-                                            <li><a class="add-wishlist" data-product="{{ product.product.id }}"><img
-                                                    src="{% static 'img/icon/xheart.png.pagespeed.ic.eX6BmaqN_X.png' %}"
-                                                    alt=""></a></li>
-                                            {#                                    <li><a href="#"><img#}
-                                            {#                                            src="{% static 'img/icon/xcompare.png.pagespeed.ic.UIWeUFOM61.png' %}"#}
-                                            {#                                            alt=""> <span>Compare</span></a>#}
-                                            {#                                    </li>#}
-                                            <li><a class="add-cart"><img
+                                            <li><a class="add-cart"
+                                                   href="{% url 'products:detail' product.product.id %}"><img
                                                     src="{% static 'img/icon/xsearch.png.pagespeed.ic.y-8fLDHdJm.png' %}"
                                                     alt=""></a>
                                             </li>
@@ -140,7 +139,8 @@
                                     </div>
                                     <div class="product__item__text">
                                         <h6>{{ product.product.name }}</h6>
-                                        <a href=" {% url "products:detail" product.product.id %}" class="add-cart">+ Add
+                                        <a data-product="{{ product.product.id }}" class="add-cart"
+                                           style="cursor: pointer">+ Add
                                             To
                                             Cart</a>
                                         <div class="rating">

@@ -48,10 +48,15 @@ def my_wishlist(request):
         list.append(page)
     q = request.GET.get('q')
     w = request.GET.get('search')
+    s=request.GET.get('s')
+
     if q:
-        product = my_wishlist.filter(product__category_shop__name__exact=q)
+        product = my_wishlist.filter(product__category_shop__name__iexact=q)
     if w:
         product = my_wishlist.filter(product__name__iexact=w)
+
+    if s:
+        product = my_wishlist.filter(product__category_shop__name__icontains=s)
     ctx = {
         'products': my_wishlist,
         'cats': cats,
@@ -89,6 +94,7 @@ def add_cart(request):
 
 
 def my_cart_view(request):
+
     cart, cart = Cart.objects.get_or_create(client=request.user, is_ordered=False)
     ctx = {
         'cart': cart
@@ -167,5 +173,8 @@ def checkout_view(request):
     ctx = {
         'form': form,
         'is_ordered': is_ordered,
+        'categories': categories,
+        'cart':cart
+
     }
     return render(request, 'checkout.html', ctx)

@@ -1,7 +1,7 @@
 {% load static %}
 {% load cart_tag %}
-{% if request.user.is_authenticted %}
-{% get_user_cart as cart %}
+{% if request.user.is_authenticated %}
+    {% get_user_cart as cart %}
 {% endif %}
 
 <!DOCTYPE html>
@@ -74,7 +74,13 @@
                 <div class="col-lg-6 col-md-5">
                     <div class="header__top__right">
                         <div class="header__top__links">
-                            <a href="/accounts/login/">Sign in</a>
+                            {% if request.user.is_authenticated %}
+
+                                <a href="/accounts/profile/">Profile</a>
+                            {% else %}
+                                <a href="/accounts/login/">Sign in</a>
+                            {% endif %}
+
                             <a href="#">FAQs</a>
                         </div>
                         <div class="header__top__hover">
@@ -113,10 +119,10 @@
             <div class="col-lg-3 col-md-3">
                 <div class="header__nav__option">
                     <form method="get" action="/">
-                        <input type="search" name="search" placeholder="Search...">
+                        <input type="search" name="search" style="border-radius: 1000px" placeholder="Search...">
                         {#                                <button type="submit"><span class="icon_search"></span></button>#}
                     </form>
-                    <a style="font-size: 20px" href="{% url 'carts:my_wishlist' %}"><img
+                    <a style="font-size: 20px;text-align: center" href="{% url 'carts:my_wishlist' %}"><img
                             src="{% static 'img/icon/xheart.png.pagespeed.ic.eX6BmaqN_X.png' %}"
                             alt="">
 
@@ -136,7 +142,7 @@
                         {% else %}
                             <span style="">0 </span></a>
                         {% endif %}
-                    <div class="price">{{ cart.get_cart_total }}</div>
+                    <div style="margin-right: 13px" class="price">UZS {{ cart.get_total_price|floatformat:0 }}</div>
                 </div>
             </div>
         </div>
@@ -272,22 +278,22 @@
 
     $('.add-cart').on('click', function () {
         let _pid = $(this).data('product')
+        // alert(_pid)
 
-        $.ajax(
-            {
-                url: '/carts/add-cart',
-                data: {
-                    _pid
-                },
-                method: 'get',
-                dataType: 'json',
-                success: function (res) {
-                    alert(res.product + ' added to cart')
-                    location.reload()
-                }
+        // Ajax
+        $.ajax({
+            url: '/carts/add-cart/',
+            data: {
+                _pid
+            },
+            method: 'get',
+            dataType: 'json',
+            success: function (res) {
+                alert(res.product + ' added to cart')
+                location.reload()
             }
-        )
-    })
+        });
+    });
 
     $('.dec').on('click', function () {
         let _ciid = $(this).next().data('cart_item_id');

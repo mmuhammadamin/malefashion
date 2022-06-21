@@ -42,6 +42,7 @@ class Category_name(models.Model):
 
 
 class Product(Timestamp):
+
     category = models.ForeignKey(Category_name, on_delete=models.SET_NULL, null=True, blank=True)
     name = models.CharField(max_length=220)
     price = models.FloatField()
@@ -99,3 +100,15 @@ class Rate(Timestamp):
         return f'Rate of {self.user.username}'
 
 
+
+# class Collections(models.Model):
+#     season=models.CharField(max_length=100)
+#     name=models.CharField(max_length=150)
+#     description=models.CharField(max_length=150)
+#     image=models.ImageField(upload_to='collections/')
+#     products=models.ForeignKey(Product,on_delete=models.CASCADE,null=True)
+#
+#     def __str__(self):
+#         return self.name
+#
+#

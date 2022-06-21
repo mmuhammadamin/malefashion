@@ -25,3 +25,10 @@ class Post(Timestamp):
 
     def __str__(self):
         return self.title
+
+class CommentModel(models.Model):
+    name=models.CharField(max_length=100)
+    phone=models.CharField(max_length=30)
+    email=models.EmailField()
+    message=models.TextField()
+

@@ -58,19 +58,23 @@
 
 
                                                                     {% if child_cat.font_type == 1 %}
-                                                                        <label for="{{ child_cat.normalize_title }}">{{ child_cat }}
-                                                                            <input type="radio"
-                                                                                   id="{{ child_cat.normalize_title }}">
-                                                                        </label>
+                                                                        <a style="color: black;cursor: pointer;"
+                                                                           href="?q={{ child_cat.name }}">
+                                                                            <label for="{{ child_cat.name }}">
+                                                                                {{ child_cat }}
+                                                                                <input type="button"
+                                                                                       id="{{ child_cat }}">
+                                                                            </label>
+                                                                        </a>
                                                                     {% endif %}
 
                                                                     {% if child_cat.font_type == 2 %}
-                                                                        <a href="?q={{ child_cat.name|slice:"1:" }}">
+                                                                        <a  href="?s={{ child_cat.name|slice:"1:" }}">
                                                                             <span>
                                                                             <label
-                                                                                style="background-color:{{ child_cat }}"
-                                                                                for="{{ child_cat.name|slice:"1:" }}">
-                                                                            <input type="radio" id="{{ child_cat }}">
+                                                                                    style="background-color:{{ child_cat }};cursor: pointer;height: 60px;border-radius: 15px;border-color:{{ child_cat }} "
+                                                                                    for="{{ child_cat.name|slice:"1:" }}">
+                                                                            <input style="background-color: {{ child_cat }};border-color: {{ child_cat }};border-radius: 10px;border-right-color: {{ child_cat }}" type="button" id="{{ child_cat }}">
                                                                         </label></span></a>
                                                                     {% endif %}
 
@@ -110,11 +114,11 @@
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <div class="shop__product__option__right">
                                     <p>Sort by Price:</p>
-                                    <select>
-                                        <option value="">Low To High</option>
-                                        {% for f_price in filter_price %}
-                                            <option value="/shop/?filter_price={{ f_price.id }}">{{ f_price.price }}</option>
-                                        {% endfor %}
+                                    <select name="sort" id="sort-list" onchange="location = finalurl();">
+                                        <option value="" id="placeholder" disabled selected hidden>Sort</option>
+
+                                        <option id="price" value="price">Low To High</option>
+                                        <option id="-price" value="-price">High To Low</option>
                                     </select>
                                 </div>
                             </div>
@@ -129,7 +133,8 @@
                                         <ul class="product__hover">
 
                                             {% if request.user.is_authenticated %}
-                                                <li><a class="add-wishlist" data-product="{{ product.id }}"><img
+                                                <li><a class="add-wishlist" style="cursor: pointer"
+                                                       data-product="{{ product.id }}"><img
                                                         src="{% static 'img/icon/xheart.png.pagespeed.ic.eX6BmaqN_X.png' %}"
                                                         alt=""></a></li>
                                                 {#                                    <li><a href="#"><img#}
@@ -142,14 +147,15 @@
                                                 </li>
                                             {% else %}
                                                 <p style="background-color:beige;color: #343a40"><a
-                                                        href="accounts/login"> firstly you should log
+                                                        href="/accounts/login"> firstly you should log
                                                     in</a></p>
                                             {% endif %}
                                         </ul>
                                     </div>
                                     <div class="product__item__text">
                                         <h6>{{ product.name }}</h6>
-                                        <a href="#" data-product="{{ product.id }}" class="add-cart">+ Add To
+                                        <a data-product="{{ product.id }}" style="cursor: pointer" class="add-cart">+
+                                            Add To
                                             Cart</a>
                                         <div class="rating">
                                             <i class="fa fa-star-o"></i>
@@ -199,5 +205,22 @@
         </div>
     </section>
 
+    <script>
+        function get(name) {
+            if (name = (new RegExp('[?&]' + encodeURIComponent(name) + '=([^&]*)')).exec(location.search))  //location.search give query sling part
+                return decodeURIComponent(name[1]);
+        }
 
+        if (get('ordering'))
+            document.getElementById('placeholder').innerHTML = "Sort: " + document.getElementById(get('ordering')).innerHTML;
+
+        function finalurl() {
+            var url = new URL(window.location.href);
+            var search_params = url.searchParams;
+            search_params.set('ordering', document.getElementById("sort-list").value);
+            url.search = search_params.toString();
+            var new_url = url.toString();
+            return new_url
+        }
+    </script>
 {% endblock %}
